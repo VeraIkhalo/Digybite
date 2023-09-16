@@ -41,6 +41,7 @@ function Basket() {
     const deliveryCharge = deliveryRules.find(rule => subtotal >= rule.threshold)?.charge || 0;
 
     total += deliveryCharge;
+    
 
     return total.toFixed(2); // Format total to two decimal places
   };
