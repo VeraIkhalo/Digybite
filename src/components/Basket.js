@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { productCatalogue, deliveryRules, offers } from '../ProductCatalogue';
 
-
 function Basket() {
   const [items, setItems] = useState([]);
 
@@ -13,7 +12,6 @@ function Basket() {
     let total = 0;
     const itemCounts = {};
 
-    // Count the quantity of each item
     items.forEach((productCode) => {
       itemCounts[productCode] = (itemCounts[productCode] || 0) + 1;
     });
@@ -25,7 +23,7 @@ function Basket() {
       // Apply discounts if applicable
       if (offers[productCode] && quantity >= 2) {
         const { discount } = offers[productCode];
-        total += product.price * quantity * (1 - discount);
+        total += product.price * quantity - product.price * discount * (quantity / 2);
       } else {
         total += product.price * quantity;
       }
@@ -41,7 +39,6 @@ function Basket() {
     const deliveryCharge = deliveryRules.find(rule => subtotal >= rule.threshold)?.charge || 0;
 
     total += deliveryCharge;
-    
 
     return total.toFixed(2); // Format total to two decimal places
   };
